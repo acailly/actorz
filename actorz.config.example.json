@@ -1,0 +1,12 @@
+{
+  "spawn": [
+    {
+      "name": "CLI",
+      "type": "cli"
+    },
+    {
+      "name": "Hello World",
+      "type": "hello-world"
+    }
+  ]
+}

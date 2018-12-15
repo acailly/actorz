@@ -11,6 +11,8 @@ function sendToActor(name, message, sourceActorName) {
     console.log(`[SEND] ${sourceActorName} => ${name}`);
     targetActorFunction(sourceActorName, message);
   } else {
+    // TODO ACY : Instead of throwing an error,
+    // send an $$ERROR message to the sourceactorname if it exists
     throw new Error("Actor not found:", name);
   }
 }

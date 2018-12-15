@@ -1,6 +1,10 @@
 {
   "name": "root",
   "private": true,
+  "scripts": {
+    "bootstrap": "lerna bootstrap",
+    "start": "node run.js"
+  },
   "devDependencies": {
     "lerna": "^3.5.0"
   }
