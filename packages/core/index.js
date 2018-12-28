@@ -1,6 +1,10 @@
 const path = require("path");
-const actorSystem = require("./actor-system");
+const createActorSystem = require("./createActorSystem");
+const addLogInConsole = require("./util/addLogInConsole");
 const config = require("../../actorz.config.json");
+
+const actorSystem = createActorSystem();
+addLogInConsole(actorSystem);
 
 const actorsToSpawn = config.spawn;
 
