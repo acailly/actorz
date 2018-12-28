@@ -16,7 +16,15 @@ function createActorSystem(actorSystemName) {
   function sendToActor(targetActorName, message, sourceActorName) {
     const targetActorFunction = actors[targetActorName];
     if (targetActorFunction) {
-      targetActorFunction(sourceActorName, message);
+      try {
+        targetActorFunction(sourceActorName, message);
+      } catch (e) {
+        // TODO ACY Mieux gérer les erreurs ?
+        console.error(
+          `Cannot send message ${message} to actor ${targetActorName}:`,
+          e
+        );
+      }
     } else {
       // TODO ACY Mieux gérer les erreurs ?
       console.error(`Actor not found: ${targetActorName}`);
