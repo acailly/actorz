@@ -1,40 +1,52 @@
 const destroyMessage = require("./messages/destroy");
 
-function createActorSystem() {
+function createActorSystem(actorSystemName) {
   const actors = {};
 
-  function spawnActor(name, actorFunction, options) {
+  function spawnActor(actorName, actorFunction, options) {
     try {
-      const actorInstance = actorFunction(actorSystem, name, options);
-      actors[name] = actorInstance;
+      const actorInstance = actorFunction(actorSystem, actorName, options);
+      actors[actorName] = actorInstance;
     } catch (e) {
       // TODO ACY Mieux gérer les erreurs ?
-      console.error(`Cannot spawn actor ${name}:`, e);
+      console.error(`Cannot spawn actor ${actorName}:`, e);
     }
   }
 
-  function sendToActor(name, message, sourceActorName) {
-    const targetActorFunction = actors[name];
+  function sendToActor(targetActorName, message, sourceActorName) {
+    const targetActorFunction = actors[targetActorName];
     if (targetActorFunction) {
       targetActorFunction(sourceActorName, message);
     } else {
       // TODO ACY Mieux gérer les erreurs ?
-      console.error(`Actor not found: ${name}`);
+      console.error(`Actor not found: ${targetActorName}`);
     }
   }
 
   // TODO ACY Pas sur de celui la
   // On a besoin d'un destroy parce que les acteurs sont enregistrés et qu'il faut les désenregistrer
   // Si ce n'était pas le cas on aurait pas besoin du destroy
-  function destroyActor(name, sourceActorName) {
-    const actorInstance = actors[name];
+  function destroyActor(actorName, sourceActorName) {
+    const actorInstance = actors[actorName];
     if (actorInstance) {
       actorInstance(sourceActorName, destroyMessage);
     }
-    actors[name] = undefined;
+    actors[actorName] = undefined;
   }
 
-  const actorSystem = { sendToActor, spawnActor, destroyActor };
+  function destroyAllActors() {
+    Object.keys(actors).forEach(actorName =>
+      destroyActor(actorName, actorSystemName)
+    );
+  }
+
+  const actorSystem = {
+    name: actorSystemName,
+    sendToActor,
+    spawnActor,
+    destroyActor,
+    destroyAllActors
+  };
 
   return actorSystem;
 }

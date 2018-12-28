@@ -10,7 +10,9 @@ const questions = [
 
 function ask(actorSystem, myName) {
   inquirer.prompt(questions).then(answers => {
-    if (answers.message !== "exit") {
+    if (answers.message === "exit") {
+      actorSystem.destroyAllActors();
+    } else {
       const targetActorName = answers.message.substr(
         0,
         answers.message.indexOf(":")
