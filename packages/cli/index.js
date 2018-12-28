@@ -24,7 +24,7 @@ function ask(actorSystem, myName) {
   });
 }
 
-module.exports = function(actorSystem, myName) {
+module.exports = function(actorSystem, myName, options) {
   ask(actorSystem, myName);
   return function(sourceActorName, message) {};
 };

@@ -1,17 +1,15 @@
-const path = require("path");
 const createActorSystem = require("./createActorSystem");
+const destroyMessage = require("./messages/destroy");
+const addSendListener = require("./util/addSendListener");
+const addSpawnListener = require("./util/addSpawnListener");
+const addDestroyListener = require("./util/addDestroyListener");
 const addLogInConsole = require("./util/addLogInConsole");
-const config = require("../../actorz.config.json");
 
-const actorSystem = createActorSystem();
-addLogInConsole(actorSystem);
-
-const actorsToSpawn = config.spawn;
-
-actorsToSpawn.forEach(actorToSpawn => {
-  const actorImplementation = require(path.join("..", actorToSpawn.type));
-  actorSystem.spawnActor(
-    actorToSpawn.name,
-    actorImplementation(actorSystem, actorToSpawn.name)
-  );
-});
+module.exports = {
+  createActorSystem,
+  destroyMessage,
+  addSendListener,
+  addSpawnListener,
+  addDestroyListener,
+  addLogInConsole
+};

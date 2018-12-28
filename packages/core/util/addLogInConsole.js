@@ -9,7 +9,8 @@ function addLogInConsole(actorSystem) {
   });
 
   addSpawnListener(actorSystem, {
-    willSpawn: (name, actorFunction) => console.log(`[SPAWN] ${name}`)
+    willSpawn: (name, actorFunction, options) =>
+      console.log(`[SPAWN] ${name} with options`, options)
   });
 
   addDestroyListener(actorSystem, {

@@ -1,1 +1,1 @@
-require("./packages/core");
+require("./packages/bootstrap-from-config");
